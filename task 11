@@ -1,0 +1,156 @@
+For an application, creating and debugging Menus, Forms and reports using Oracle Forms 
+and Report Builder.  
+a) Designing Forms and handling insert, delete, modify through Database 
+Connectivity. 
+Using Large objects, create and assign acceptance format for the Employees in Bus 
+Management System 
+Form Builder Tool 
+Open the "Form Builder" tool. 
+Welcome window 
+You will get the Welcome to the Form Builder window. 
+Use the data Block Wizard, ( Tools  Data block wizard ) 
+You will get  welcome to the the data block wizard 
+Next  table or view  Enter the table name EMP 
+Refresh  provide connection details ( user name , password and host string ) 
+Move all the columns from available columns to database items 
+Data block name ( let it be same as table name  )   create data block then call layout 
+wizard  
+finish. 
+We are done with datablock wizard , You will get welcome to layout wizard 
+Canvas ( new canvas )  Type content 
+Next  Move all items from available items to displayed 
+items  Next  Next  Select form 
+Frame tile Emp Details Next  Finish 
+We are done with layout wizard 
+Go to  File - Save As - Create new folder in desktop  with the name MY_FORMS 
+Save the  file with the name  EMP_FORM.fmb 
+Important is to observe the object navigator ( Press F3 ) 
+You can see under forms  your form name i.e. EMP_FORM 
+Under form, data block is created i.e. EMP ( Data block refers to table ) 
+Under data block, i.e. you find Item ( Item refers to columns in the table ) 
+Under canvases, you can see a canvas 
+Under Canvas, you can see the frame 
+Understand hierarchy. It is simple. 
+Now, Compile the form. 
+In the Menu, Go to Program -   Compile Module ( Ctrl + T ) 
+In your desktop, in your folder MY_FORMS , Observe  .fmx file is generated. 
+Note: 
+When we compile fmb file,  fmx file is generated. 
+To run the form, start the listener /  Start OC4J listener 
+Now, Run the form 
+Click on Run Form Icon. 
+It will prompt to install Jinitiator, Install it. 
+Your Form is opened in the browser. 
+Now, Enter values in few fields like  empno, ename ,sal , deptno, click on save. 
+You get a message, Transaction complete: 1 record applied and saved. 
+Now check your EMP table in the database,  you can see the new row is inserted. 
+To look at all the rows in the emp table, click on execute query 
+To look at the next row click on next record. 
+To look at previous row click on previous record button 
+To change the salary of ALLEN from 1600 to 2000. 
+Go to ALLEN record, change the value of sal field to 2000. 
+Click on save button. 
+To delete the row of empno 111, traverse the record, click on delete button and save. 
+Look at the EMP  table , empno 111 is deleted. 
+To see the details of all the employees working in deptno 20. 
+Click on Enter query 
+Enter deptno 20 
+Click on Execute query 
+Now, when you click on next record, you will get only the records working in deptno 20. 
+b)     
+  Designing Forms and handling insert, delete, modify through Database Connectivity. 
+Using Large objects, create and assign acceptance format for the Employees Working in Bus 
+Management System 
+Procedure: 
+Open the report builder tool Welcome to the Report Builder  Select Use the report 
+wizard  OK   Welcome to the report wizard  Next  Create both Web and Paper 
+Layout Next Title -- EMP Details  , Choose the report style as Tabular Next  SQL 
+Query  Next   Data Source Definition --  Select * from emp  Next  provide the 
+username, password and database details  Connect  Move all the fields from Available 
+Fields to Displayed Fields Next Next Next Select Predefined template -- 
+Blue  Next  Finish. 
+This is how your report looks like. 
+Save the report with the name EMP.rdf 
+Go to Tools  Object Navigator  ( Short cut F5 ) 
+Double click on the Data Model . 
+Data Model of the report is displayed. 
+In the data model, we can see the query. 
+Query results in group. 
+Group is collection of columns. 
+In our report, the name of the query is Q_1. 
+The name of the group is G_EMPNO. 
+Observer the group contains columns like EMPNO, ENAME, JOB, MGR  etc. 
+Double click on query Q_1 ,  the query used in developing the report is displayed. 
+In the Object Navigator, when we expand the Data Model, we can see the Query, Group and 
+list of the columns in the group. 
+In the Object Navigator, expand the Paper Layout. 
+It contains three sections. 
+1) Header Section 
+2) Main Section 
+3) Trailer Section 
+Expand the Header Section, there is nothing found. 
+Expand the Trailer Section, there is nothing found. 
+Expand the Main section, We can see Body and Margin. 
+Expand Body, we will find M_G_EMPNO_GRPFR. It is called as Group Frame. 
+It groups all the objects belong the query. Hence it is called Group Frame. It is the first frame 
+that is created by the wizard. The name of the frame always ends with GRPFR ( stands for 
+Group Frame ). 
+Under Group frame we find Header frame. 
+This frame name ends with _HDR. 
+This frame is used to group the column headings of the report. 
+The next object is repeating frame. We can identify the repeating frame in two ways. 
+Repeating  always have an arrow on the frame. 
+The name of the repeating frame always starts with R_ 
+Repeating frame represents a group in the query. 
+There is one-to-one relationship between group and repeating frame. 
+The last objects are field objects. These objects reside inside the repeating frame. 
+Field objects display database columns. The field names start with F_ . The fields must be 
+displayed in the repeating frame that corresponds to the group they are in. 
+When we are creating the layout manually from the scratch we have to be very careful that 
+the fields are placed in the correct repeating frames. 
+Let us look at another similar example. 
+Lets us create another report using wizard based on DEPT table 
+Open the report builder tool 
+File New  Report   Use the report Wizard  OK Next Create both Web and 
+Paper Layout Next  Title -- Dept Details   Style -- Tabular SQL Query Next  
+Data Source Definition -- Select * from dept  Next  Enter username, password and 
+database details  Connect move all fields from Available fields to displayed 
+fields  Next Next Next  Predefined template  -- Green Next  Finish 
+This is how our report looks like. 
+Save the report with the name DEPT.rdf 
+Similar to our previous example, in the Object Navigator ( F5) , double click on the Data 
+Model, we find query, query results in group. Group contains fields. 
+In the Object Navigator, expand paper layout, under main section, we find Group frame, 
+Header frame and Repeating frame.  Repeating frame contains fields. This is same as our 
+previous example. 
+In the Object Navigator,  select Paper Layout,  Go to Tools Report Editor, we get the paper 
+layout of the report. This layout is designed by the wizard. 
+Lets us understand the layout designed by the wizard. 
+Select all the fields ( ctrl + A ) move the layout to the centre by using arrow keys in the 
+keyboard. 
+Click on any field and select the outer most frame by clicking "select parent frame"  button ( 
+two times) 
+Expand outermost frame to all the directions by using mouse. 
+Select column heading loc , select its parent frame by clicking "Select parent frame" button. 
+Click on Flex Off button. 
+Move the header frame towards up (by using arrow keys ). 
+Click on LOC field, select its parent frame and expand to all directions by using mouse. 
+Select LOC field and move the field towards right by using arrow key. 
+Select DEPTNO field and move the field towards left by using arrow key. 
+By looking at the above layout, we can understand arrangement of frames done by the 
+wizard. 
+All the fields in the repeating frame will be repeated for every row  in the query. 
+The changes which we have done to the layout is just for our understanding purpose. 
+Save the changes ( File  Save ) 
+Run the report  ( Program  Run Paper Layout ) 
+Look at the output below 
+In the output, we see big distance between the records.  Because in the layout the width of the 
+repeating frame is more. 
+Let us decrease the width of the repeating frame in the paper layout. 
+Save the report. 
+Run the report. 
+Look at the output below 
+Observe, there is noticeable distance between the rows now. 
+RESULT 
+Designing Forms and handling insert, delete, modify through Database Connectivity 
+using Oracle Form builder has done successfully. 
