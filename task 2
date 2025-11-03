@@ -1,0 +1,93 @@
+Aim:  To create  a traditional database using Hierarchical and Network models and convert/enhance it into a relational schema, identify inheritance relationships, perform constraints, and implement using SQL (DDL + DCL).
+Question:
+Creating Hierarchical /Network model of the database by enhancing the sound abstract data by performing following tasks using forms of inheritance:
+1.	a Identify the specificity of each relationship, find and form surplus relations.
+2. b Check is-a hierarchy/ has-a hierarchy and performs generalization and/or specialization relationship.
+2. c Find the domain of the attribute and perform check constraint to the applicable.
+2. d Rename the relations.
+2. e Perform SQL Relations using DDL, DCL commands.
+
+Sample output:
+Revoke all from user1;
+2.	f Using create, design Relational Hierarchical model and Relational Network Model ER diagrams.
+1. Scenario for Database Modeling
+Domain: University Management System
+Entities:
+	University
+	Department
+	Professor
+	Course
+	Student
+Relationships:
+	University has multiple Departments (1:M)
+	Department offers many Courses (1:M)
+	Professor teaches multiple Courses (M:N)
+	Student enrolls in multiple Courses (M:N)
+Specificity and Surplus Relationships
+Specific Relations:
+University → Department (1:M)
+Department → Course (1:M)
+
+Surplus (Derived) Relations:
+	Teaches (Professor → Course)
+	Enrollment (Student → Course)
+2.b Inheritance Hierarchy and Relationships
+	IS-A Hierarchy:
+	Person
+	Professor
+	Student
+	HAS-A Hierarchy:
+	Department HAS-A HOD (Professor)
+Generalization/Specialization:
+	Person (person_id, name, contact)
+	Professor (professor_id, designation)
+	Student (student_id, batch)
+2.c Domain and Constraints
+Attribute	Domain / Constraint
+age	INTEGER CHECK (age BETWEEN 18 AND 60)
+email	VARCHAR(50) UNIQUE NOT NULL
+course_code	VARCHAR(10) PRIMARY KEY
+grade	CHAR CHECK (grade IN ('A','B','C','D','F'))
+2.d Relation Renaming for Normalization
+Old Name	New Name
+Professor	Faculty
+Department	Dept
+Enrollment	Course_Registration
+Teaches	Course_Assignment
+2.c: Find domain of attribute + Check constraint
+Attribute	Domain / Constraint	
+age	INTEGER CHECK (age BETWEEN 18 AND 60)	
+email	VARCHAR(50) UNIQUE NOT NULL	
+course_code	VARCHAR(10) PRIMARY KEY	
+grade	CHAR CHECK (grade IN (‘A’,’B’,’C’,’D’,’F’))	
+
+2.d: Rename the relations
+For clarity and normalization:
+Professor → Faculty
+Department → Dept
+Enrollment → Course_Registration
+Teaches → Course_Assignment
+2.e: SQL Implementation (DDL + DCL)
+	DDL – Schema Creation
+	 
+ 
+DCL – Permission Control
+-- 
+ 2.f: Create Hierarchical & Network Models in ER Diagram (Using Creately or Similar Tools)
+Hierarchical Model
+University
+   |
+   |---> Department
+              |
+              |---> Course
+                        |
+                        |---> Student
+
+
+✅ Network Model
+[Faculty] --- teaches ---> [Course] <--- enrolled by --- [Student]
+                        ↑                     ↑
+                  offered by              belongs to
+                      ↓                      ↓
+                [Department] ---------> [University]
+Use diamond shapes for relationships and ellipses for attributes. Arrows represent cardinality.
