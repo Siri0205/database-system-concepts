@@ -1,0 +1,46 @@
+Aim: To Perform the query processing on databases for different retrieval results of queries using 
+DML, DRL operations using aggregate, date, string, indent functions, set clauses and operators. 
+• To retrieve the location of a particular match conducted by its MatchID 
+• To retrieve the Players detail whose name start with ‘A’. 
+• Add a column Batting and Bowling in Player table. 
+• To count the number of right-hand batsman in a team. 
+• To display the CricketBoard details for the BoardIDs 'BID01', 'BID03', and 'BID06'. 
+• To select the names and IDs of players who are left-hand bowlers. 
+• To find the UmpireID of umpires who have not umpired any match. 
+• To list the PlayerIDs and the total number of matches each player has played. 
+Sample output: 
+1. Select location from Match where MatchID=’MAC03’; 
+2. Select * from Player where Name =’A%’; 
+3. Alter table Player add Batting varchar(20), Bowling varchar(6); 
+4. Select count(*) from Players where Batting=’right-hand’; 
+5. Select * from CricketBoard where BoardID in(‘BID01’, BID03’,’BID06’); 
+6. Select PLayerID, Name for Player where Bowling=’left-hand’; 
+Queries: 
+1. Retrieve the location of a particular match by its MatchID   
+SELECT Location FROM   Match WHERE  MatchID = 'MAC03';  -- Filter for the 
+required match 
+2.  Retrieve the player details whose name starts with 'A' 
+SELECT * FROM   Player WHERE  UPPER(Name) LIKE 'A%';  -- 'A%' matches names 
+starting with A (case-insensitive) 
+3. Add columns Batting and Bowling to the Player table 
+ALTER TABLE Player ADD ( Batting VARCHAR2(20),       
+right-hand, left-hand  Bowling VARCHAR2(10) );                  -- Stores batting style (e.g., -- Stores bowling style 
+4. Count the number of right-hand batsmen in a specific team 
+SELECT COUNT(*) AS NumRightBatsmen FROM   Player WHERE  LOWER(Batting) 
+= 'right-hand'        -- Match batting style 
+AND  TeamID = 'TID01';                  
+(change as needed) 
+5. Display CricketBoard details for specific BoardIDs -- Restrict to one team 
+SELECT * FROM   CricketBoard  WHERE  BoardID IN ('BID01','BID03','BID06');  -- Matches any of the listed IDs  
+6.Select the PlayerID and Name of players who are left-hand bowlers   
+SELECT PlayerID, Name FROM   Player WHERE  LOWER(Bowling) = 'left-hand';   -- Match bowling style  
+7. Find UmpireIDs of umpires who have not umpired any match 
+SELECT U.UmpireID, U.Name FROM   Umpire U  LEFT JOIN Match_Umpire MU 
+ON U.UmpireID = MU.UmpireID      
+WHERE  MU.UmpireID IS NULL;                                      
+match records  -- Match umpires to matches -- Keep only those with no  
+8. List PlayerIDs and total number of matches each player has played 
+SELECT PlayerID, COUNT(DISTINCT MatchID) AS MatchesPlayed  -- Count unique 
+matches per player 
+FROM   Player_Match 
+GROUP BY PlayerID;                               -- Group results by each player 
