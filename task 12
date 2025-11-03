@@ -1,0 +1,845 @@
+BANK MANAGEMENT SYSTEM
+
+MEMBERS:
+ 
+STEP 1: Implementation of ER Model and SchemaSteps involved in er model:
+1.	Identify Entities
+Identify the main objects or entities that will be represented in the diagram. Entities typically represent real-
+world objects, people, or concepts (e.g., Employee, Customer, Product).
+2.	Determine Attributes
+For each entity, determine the attributes or properties that describe the entity (e.g., Employee attributes could
+be EmployeeID, Name, and Department).
+3.	Identify Relationships
+Identify how the entities are related to one another (e.g., Employee works for Department). Relationships
+describe the associations between entities.
+4.	Determine Cardinality
+Define the cardinality of each relationship (i.e., one-to-one, one-to-many, or many-to-many). This shows how
+many instances of one entity relate to instances of another entity.
+5.	Draw the Diagram
+Draw Entities: Use rectangles to represent each entity.
+Add Attributes: Use ovals to represent attributes and connect them to the corresponding entity. Draw
+Relationships: Use diamonds to represent relationships and connect the entities involved.
+Indicate Cardinality: Use numbers or symbols (1, N) next to the relationship lines to show cardinality.
+ 
+
+
+
+OUTPUT:
+
+ 
+
+
+
+STEP 2 :Conversion of ER Model To Relation Model
+Converting an Entity-Relationship (ER) Model to a Relational Model Is a Crucial Step in Designing a Relational Database. This Process Involves Translating the Entities, Attributes, and Relationships Defined in the ER Diagram Into Tables, Columns, and Keys in a Relational Schema. Below Are the Comprehensive Steps To Perform This Conversion Effectively.
+
+Steps To Convert an ER Model to a Relational Model:
+Step 1: Mapping of Regular Entity Types Step 2: Mapping of Weak Entity Types
+Step 3: Mapping of Binary 1:1 Relation Types Step 4: Mapping of Binary 1:N Relationship Types.
+Step 5: Mapping of Binary M:N Relationship Types. Step 6: Mapping of Multivalued Attributes.
+Step 7: Mapping of N-Ary Relationship …
+Syntax for Relational Model:
+
+ 
+ 
+
+
+
+ 
+ 
+
+
+
+
+STEP 3 :
+Implementation of DDL,DML,DCL,TCL, COMMANDS .
+
+
+DDL COMMANDS:
+
+
+CREATE : To Add a New Object to the Database. ALTER : To Change the Structure of the Database.
+DROP : To Remove an Existing Object From the Database	TRUNCATE :
+To Remove all Records From a Table, Including the Space Allocated To Store This Data.
+
+DML_COMMANDS:
+CREATE : To Add a New Object to the Database. ALTER : To Change the Structure of the Database.
+DROP : To Remove an Existing Object From the Database	TRUNCATE : To
+Remove all Records From a Table, Including the Space Allocated To Store This Data.
+DCL COMMANDS :
+ 
+DCL Includes Two Commands, GRANT and REVOKE
+
+
+TCL COMMANDS :
+Commit, Rollback, and Savepoint. TCL Commands Are Important for Maintaining ACID Properties. These Commands Allow You To Commit or Discard Changes, Manage Savepoints, and Control the Overall Flow of Data Modifications.
+
+
+
+DDL SYNTAX AND OUTPUT:
+Create tables
+CREATE TABLE Customer ( CustomerID INT PRIMARY KEY, Name VARCHAR(50) NOT NULL, Address VARCHAR(100) NOT NULL, Phone VARCHAR(20) NOT NULL, Email VARCHAR(50) UNIQUE
+);
+
+
+CREATE TABLE Account ( AccountID INT PRIMARY KEY,
+CustomerID INT,
+AccountType VARCHAR(20) CHECK (AccountType IN ('Savings', 'Current', 'Fixed Deposit')),
+Balance DECIMAL(10, 2) DEFAULT 0.00,
+FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+ 
+CREATE TABLE Transaction ( TransactionID INT PRIMARY KEY, AccountID INT,
+TransactionDate DATE NOT NULL,
+TransactionType VARCHAR(20) CHECK (TransactionType IN ('Deposit', 'Withdrawal', 'Transfer')),
+Amount DECIMAL(10, 2) NOT NULL,
+FOREIGN KEY (AccountID) REFERENCES Account(AccountID)
+);
+
+
+CREATE TABLE Employee ( EmployeeID INT PRIMARY KEY, Name VARCHAR(50) NOT NULL,
+Designation VARCHAR(20) NOT NULL, Salary DECIMAL(10, 2) NOT NULL
+);
+
+
+CREATE TABLE Branch ( BranchID INT PRIMARY KEY,
+BranchName VARCHAR(50) NOT NULL, Address VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE Loan ( LoanID INT PRIMARY KEY,
+CustomerID INT,
+LoanAmount DECIMAL(10, 2) NOT NULL,
+InterestRate DECIMAL(5, 2) NOT NULL, RepaymentPeriod INT NOT NULL,
+FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+ 
+OUTPUT:
+After executing the above DDL commands, the database schema will be created with the following tables:
+Customer Table
+| Column Name | Data Type | Description |
+| --- | --- | --- |
+| CustomerID | INT | Unique customer identifier |
+| Name | VARCHAR(50) | Customer name |
+| Address | VARCHAR(100) | Customer address |
+| Phone | VARCHAR(20) | Customer phone number |
+| Email | VARCHAR(50) | Customer email | Account Table
+| Column Name | Data Type | Description |
+| --- | --- | --- |
+| AccountID | INT | Unique account identifier |
+| CustomerID | INT | Foreign key referencing Customer table |
+| AccountType | VARCHAR(20) | Account type (Savings, Current, Fixed Deposit) |
+| Balance | DECIMAL(10, 2) | Account balance |
+
+
+Transaction Table
+| Column Name | Data Type | Description |
+| --- | --- | --- |
+| TransactionID | INT | Unique transaction identifier |
+| AccountID | INT | Foreign key referencing Account table |
+| TransactionDate | DATE | Transaction date |
+| TransactionType | VARCHAR(20) | Transaction type (Deposit, Withdrawal, Transfer) |
+| Amount | DECIMAL(10, 2) | Transaction amount |
+
+
+Employee Table
+| Column Name | Data Type | Description |
+ 
+| --- | --- | --- |
+| EmployeeID | INT | Unique employee identifier |
+| Name | VARCHAR(50) | Employee name |
+| Designation | VARCHAR(20) | Employee designation |
+| Salary | DECIMAL(10, 2) | Employee salary |
+
+
+Branch Table
+| Column Name | Data Type | Description |
+| --- | --- | --- |
+| BranchID | INT | Unique branch identifier |
+| BranchName | VARCHAR(50) | Branch name |
+| Address | VARCHAR(100) | Branch address |
+
+
+Loan Table
+| Column Name | Data Type | Description |
+| --- | --- | --- |
+| LoanID | INT | Unique loan identifier |
+| CustomerID | INT | Foreign key referencing Customer table |
+| LoanAmount | DECIMAL(10, 2) | Loan amount |
+| InterestRate | DECIMAL(5, 2) | Loan interest rate |
+| RepaymentPeriod | INT | Loan repayment period |
+
+
+DML COMMANDS:
+
+
+Inserting Data
+
+
+Insert customers
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email) VALUES
+(1, 'John Doe', '123 Main St', '123-456-7890', 'john.doe@example.com'),
+ 
+(2, 'Jane Smith', '456 Elm St', '987-654-3210', 'jane.smith@example.com');
+
+
+Insert accounts
+
+
+INSERT INTO Account (AccountID, CustomerID, AccountType, Balance) VALUES
+(1, 1, 'Savings', 1000.00),
+(2, 1, 'Current', 500.00),
+(3, 2, 'Fixed Deposit', 5000.00);
+
+
+Insert transactions
+
+
+INSERT INTO Transaction (TransactionID, AccountID, TransactionDate, TransactionType, Amount)
+VALUES
+(1, 1, '2022-01-01', 'Deposit', 500.00),
+(2, 1, '2022-01-15', 'Withdrawal', 200.00),
+(3, 2, '2022-02-01', 'Transfer', 300.00);
+
+
+Insert employees
+
+
+INSERT INTO Employee (EmployeeID, Name, Designation, Salary) VALUES
+(1, 'Bob Johnson', 'Branch Manager', 50000.00),
+(2, 'Alice Williams', 'Customer Service', 30000.00);
+
+
+Insert branches
+
+
+INSERT INTO Branch (BranchID, BranchName, Address) VALUES
+ 
+(1, 'Main Branch', '123 Main St'),
+(2, 'Downtown Branch', '456 Elm St');
+
+
+Insert loans
+
+
+INSERT INTO Loan (LoanID, CustomerID, LoanAmount, InterestRate, RepaymentPeriod) VALUES
+(1, 1, 10000.00, 6.00, 60),
+(2, 2, 20000.00, 8.00, 120);
+
+
+Selecting Data
+
+
+Select all customers SELECT * FROM Customer;
+
+Select accounts for customer 1
+SELECT * FROM Account WHERE CustomerID = 1;
+
+
+Select transactions for account 1
+SELECT * FROM Transaction WHERE AccountID = 1;
+
+
+Select employee details SELECT * FROM Employee;
+
+Select branch details SELECT * FROM Branch;
+
+Select loan details for customer 1
+SELECT * FROM Loan WHERE CustomerID = 1;
+ 
+Updating Data
+
+
+Update customer address
+UPDATE Customer SET Address = '789 Oak St' WHERE CustomerID = 1;
+
+
+Update account balance
+UPDATE Account SET Balance = 1500.00 WHERE AccountID = 1;
+
+
+Update transaction amount
+UPDATE Transaction SET Amount = 400.00 WHERE TransactionID = 1; Update employee salary
+UPDATE Employee SET Salary = 55000.00 WHERE EmployeeID = 1;
+
+
+Update branch address
+UPDATE Branch SET Address = '901 Maple St' WHERE BranchID = 1;
+
+
+Update loan interest rate
+UPDATE Loan SET InterestRate = 7.00 WHERE LoanID = 1;
+
+
+Deleting Data
+
+
+Delete customer
+DELETE FROM Customer WHERE CustomerID = 2;
+
+
+Delete account
+DELETE FROM Account WHERE AccountID = 3;
+
+
+Delete transaction
+DELETE FROM Transaction WHERE TransactionID = 2;
+ 
+Delete employee
+DELETE FROM Employee WHERE EmployeeID = 2;
+
+
+Delete branch
+DELETE FROM Branch WHERE BranchID = 2;
+
+
+Delete loan
+DELETE FROM Loan WHERE LoanID = 2;
+
+
+
+
+
+OUTPUT:				
+
+Customers
+| CustomerID | Name	
+
+| Address	
+
+| Phone	
+
+| Email	
+
+|
+|	|	|
+|	|	|	
+| 1	| John Doe	| 123 Main St | 123-456-7890 | john.doe@example.com  |
+| 2	| Jane Smith | 456 Elm St | 987-654-3210  | jane.smith@example.com |
+
+
+Accounts
+| AccountID | CustomerID | AccountType | Balance |
+|	|	|	|	|
+| 1	| 1	| Savings	| 1000.00 |
+| 2	| 1	| Current	| 500.00 |
+| 3	| 2	| Fixed Deposit| 5000.00 |
+
+
+Transactions
+| TransactionID | AccountID | TransactionDate | TransactionType | Amount |
+|	|	|	|	|	|
+| 1	| 1	| 2022-01-01	| Deposit	| 500.00 |
+ 
+| 2	| 1	| 2022-01-15	| Withdrawal	| 200.00 |
+
+TCL COMMANDS:
+
+
+Commit
+Insert a new customer
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email)
+VALUES (3, 'Bob Brown', '789 Oak St', '555-123-4567', 'bob.brown@example.com');
+
+
+Commit the transaction COMMIT;
+
+Rollback
+
+
+Start a transaction BEGIN TRANSACTION;
+
+Insert a new customer
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email)
+VALUES (4, 'Alice Davis', '901 Maple St', '666-789-0123', 'alice.davis@example.com');
+ 
+
+
+-- Rollback the transaction-- ROLLBACK;
+
+Savepoint
+
+
+Start a transaction BEGIN TRANSACTION;
+ 
+Insert a new customer
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email)
+VALUES (5, 'Mike Evans', '345 Pine St', '777-890-1234', 'mike.evans@example.com');
+
+
+-- Create a savepoint-- SAVEPOINT sp1;
+
+Insert another customer
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email)
+VALUES (6, 'Emily Chen', '678 Cedar St', '888-901-2345', 'emily.chen@example.com');
+-- Rollback to the savepoint-- ROLLBACK TO sp1;
+
+-- Commit the transaction-- COMMIT;
+
+Lock
+Lock the Customer table for exclusive access LOCK TABLE Customer IN EXCLUSIVE MODE;
+
+-- Insert a new customer
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email)
+VALUES (7, 'David Lee', '345 Spruce St', '999-000-1111', 'david.lee@example.com');
+
+
+Unlock the table UNLOCK TABLES;
+
+Set Transaction
+Set the transaction isolation level to SERIALIZABLE
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+ 
+Start a transaction BEGIN TRANSACTION;
+
+Insert a new customer
+INSERT INTO Customer (CustomerID, Name, Address, Phone, Email)
+VALUES (8, 'Sarah Taylor', '456 Walnut St', '111-222-3333', 'sarah.taylor@example.com');
+
+
+-- Commit the transaction-- COMMIT
+TCL Outputs:
+
+
+Commit
+Query OK, 1 row affected (0.01 sec)
+
+
+CustomerID | Name	| Address	| Phone	| Email
+		|	|	|	|	 3	| Bob Brown | 789 Oak St |
+
+DCL COMMANDS:
+
+Grant
+Grant SELECT, INSERT, UPDATE privileges on Customer table to user 'bank_user' GRANT SELECT, INSERT, UPDATE ON Customer TO 'bank_user';
+
+Grant ALL privileges on Account table to user 'bank_admin' GRANT ALL PRIVILEGES ON Account TO 'bank_admin';
+
+Revoke
+ 
+Revoke INSERT privilege on Customer table from user 'bank_user' REVOKE INSERT ON Customer FROM 'bank_user';
+
+Revoke ALL privileges on Account table from user 'bank_admin' REVOKE ALL PRIVILEGES ON Account FROM 'bank_admin';
+
+
+
+
+
+
+
+
+
+STEP 4: Aggregate functions and Join queries
+
+
+Aggregate Functions:
+
+
+1.	 Total balance of all customers: SELECT SUM(Balance) AS TotalBalance FROM Account;
+
+Output:
+| TotalBalance |
+|	|
+| 25000.00	|
+
+
+2.	 Average balance of savings accounts: SELECT AVG(Balance) AS AverageSavings FROM Account
+WHERE AccountType = 'Savings';
+ 
+Output:
+| AverageSavings |
+|	|
+| 1500.00	|
+
+
+3.	 Maximum loan amount:
+SELECT MAX(LoanAmount) AS MaxLoan FROM Loan;
+
+
+
+
+
+Output:
+| MaxLoan |
+|	|
+| 20000.00 |
+
+
+4.	 Minimum deposit:
+SELECT MIN(Amount) AS MinDeposit FROM Transaction
+WHERE TransactionType = 'Deposit';
+
+
+Output:
+| MinDeposit |
+|	|
+| 100.00	|
+
+
+5.	 Total transactions per day:
+SELECT TransactionDate, COUNT(*) AS TotalTransactions FROM Transaction
+ 
+GROUP BY TransactionDate;
+
+
+Output:
+| TransactionDate | TotalTransactions |
+|-----------------|	|
+| 2022-01-01	| 5	|
+| 2022-01-15	| 3	|
+| 2022-02-01	| 2	|
+
+
+
+
+
+Join Queries:
+
+
+1.	 Customer information with account details:
+SELECT C.CustomerID, C.Name, A.AccountID, A.AccountType, A.Balance FROM Customer C
+JOIN Account A
+ON C.CustomerID = A.CustomerID;
+
+
+Output:
+| CustomerID | Name	| AccountID | AccountType | Balance |
+|	|	|	|	|	|
+| 1	| John Doe	| 1	| Savings	| 1000.00 |
+| 1	| John Doe	| 2	| Current	| 500.00 |
+| 2	| Jane Smith | 3	| Fixed Deposit| 5000.00 |
+
+
+2.	 LEFT JOIN
+A LEFT JOIN returns all records from the left table and matching records from the right table. If no match is found, the result will contain NULL values.
+ 
+SELECT C.CustomerID, C.Name, A.AccountID, A.AccountType FROM Customer C
+LEFT JOIN Account A
+ON C.CustomerID = A.CustomerID;
+
+
+Output:
+| CustomerID | Name	| AccountID | AccountType |
+|------------|-------------|-----------|	|
+| 1	| John Doe	| 1	| Savings	|
+| 1	| John Doe	| 2	| Current	|
+| 2	| Jane Smith | 3	| Fixed Deposit|
+| 3	| Bob Brown	| NULL	| NULL	|
+
+
+3.	RIGHT JOIN
+A RIGHT JOIN returns all records from the right table and matching records from the left table. If no match is found, the result will contain NULL values.
+
+
+SELECT C.CustomerID, C.Name, A.AccountID, A.AccountType FROM Customer C
+RIGHT JOIN Account A
+ON C.CustomerID = A.CustomerID;
+
+
+Output:
+| CustomerID | Name	| AccountID | AccountType |
+|	|	|	|	|
+| 1	| John Doe	| 1	| Savings	|
+| 1	| John Doe	| 2	| Current	|
+| 2	| Jane Smith | 3	| Fixed Deposit|
+| NULL	| NULL	| 4	| Checking	|
+ 
+4.	FULL OUTER JOIN:
+A FULL OUTER JOIN returns all records from both tables, with NULL values where no match is found. It combines the results of LEFT JOIN and RIGHT JOIN.
+
+
+FULL OUTER JOIN Query
+SELECT C.CustomerID, C.Name, A.AccountID, A.AccountType, A.Balance FROM Customer C
+FULL OUTER JOIN Account A
+ON C.CustomerID = A.CustomerID;
+
+
+Output:
+| CustomerID | Name	| AccountID | AccountType | Balance |
+|	|	|	|	|	|
+
+| 1	| John Doe	| 1	| Savings	| 1000.00 |
+| 1	| John Doe	| 2	| Current	| 500.00 |
+| 2	| Jane Smith | 3	| Fixed Deposit| 5000.00 |
+| 3	| Bob Brown  | NULL	| NULL	| NULL	|
+| NULL	| NULL	| 4	| Checking	| 2000.00 |
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+STEP 5: NESTED AND JOIN QUERIES
+
+
+Nested Queries:
+1.	 Find customers with balance greater than the average balance:
+SELECT *
+FROM Customer WHERE CustomerID IN ( SELECT CustomerID FROM Account
+WHERE Balance > ( SELECT AVG(Balance) FROM Account
+)
+);
+
+
+Output:
+| CustomerID | Name	| Address	| Phone	| Email	|
+|	|	|	|	|	|
+| 2	| Jane Smith | 456 Elm St | 987-654-3210  | jane.smith@example.com |
+ 
+2.	 Find accounts with transaction amount greater than the maximum loan amount:
+SELECT *
+FROM Account WHERE AccountID IN ( SELECT AccountID FROM Transaction WHERE Amount > (
+SELECT MAX(LoanAmount) FROM Loan
+)
+);
+
+
+Output:
+| AccountID | CustomerID | AccountType | Balance |
+|	|	|	|	|
+| 1	| 1	| Savings	| 1000.00 |
+
+
+3.	 Find customers with loan amount greater than the total balance of their accounts:
+SELECT *
+FROM Customer WHERE CustomerID IN ( SELECT L.CustomerID FROM Loan L
+JOIN Account A
+ON L.CustomerID = A.CustomerID GROUP BY L.CustomerID
+HAVING L.LoanAmount > SUM(A.Balance)
+ 
+
+);				
+
+Output:
+| CustomerID | Name	
+
+| Address	
+
+| Phone	
+
+| Email	
+
+|
+|	|	|
+|	|	|	
+| 2	| Jane Smith | 456 Elm St | 987-654-3210  | jane.smith@example.com |
+
+
+
+
+Join Queries with Nested Queries:
+
+
+1.	 Find customer information and account details for customers with balance greater than the average balance:
+SELECT C.*, A.AccountID, A.AccountType, A.Balance FROM Customer C
+JOIN Account A
+ON C.CustomerID = A.CustomerID WHERE A.Balance > (
+SELECT AVG(Balance) FROM Account
+);
+
+
+
+Output:
+| CustomerID | Name	| Address	
+| Phone	
+| Email	
+| AccountID |
+AccountType | Balance |
+|	|	|	|	
+|	
+|	
+|	|	
+	|			
+
+
+
+
+ 
+| 2	| Jane Smith | 456 Elm St | 987-654-3210 | jane.smith@example.com | 3	| Fixed Deposit| 5000.00 |
+
+
+2.	 Find transaction details and customer information for transactions with amount greater than the maximum loan amount:
+SELECT T.*, C.Name, C.Address, C.Phone, C.Email FROM Transaction T
+JOIN Customer C
+ON T.AccountID = C.CustomerID WHERE T.Amount > (
+SELECT MAX(LoanAmount) FROM Loan
+);
+Output:
+| TransactionID | AccountID | TransactionDate | TransactionType | Amount | Name	| Address	| Phone	| Email	|
+|	|	|	|	|	|	|	|
+  |	|
+| 1	| 1	| 2022-01-01	| Deposit	| 500.00 | John Doe	| 123 Main St | 123- 456-7890 | john.doe@example.com |
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STEP 6: Normalisation forms for the data base
+
+
+First Normal Form (1NF)
+
+
+Customer Table
+| CustomerID (PK) | Name
+|	|	|
+| Address
+|	| Phone
+|	| Email	|
+|
+| 1	| John Doe	| 123 Main St | 123-456-7890 | john.doe@example.com  |
+| 2	| Jane Smith | 456 Elm St | 987-654-3210  | jane.smith@example.com |
+| 3	| Bob Brown | 789 Oak St  | 555-123-4567  | bob.brown@example.com  |
+
+
+Account Table
+| AccountID (PK) | CustomerID (FK) | AccountType | Balance |
+|	|	|	|	|
+
+| 1	| 1	| Savings	| 1000.00 |
+| 2	| 1	| Current	| 500.00 |
+| 3	| 2	| Fixed Deposit| 5000.00 |
+ 
+Transaction Table
+| TransactionID (PK) | AccountID (FK) | TransactionDate | TransactionType | Amount |
+|	|	|	|	|	|
+| 1	| 1	| 2022-01-01	| Deposit	| 500.00 |
+| 2	| 1	| 2022-01-15	| Withdrawal	| 200.00 |
+| 3	| 2	| 2022-02-01	| Transfer	| 300.00 |
+
+
+Loan Table
+| LoanID (PK) | CustomerID (FK) | LoanAmount | InterestRate |
+|	|	|	|	|
+
+| 1	| 1	| 10000.00 | 6.00	|
+| 2	| 2	| 20000.00 | 8.00	|
+Second Normal Form (2NF)
+
+
+
+Customer Table	
+| CustomerID (PK) | Name
+|	|	|	| AddressID (FK) | Phone
+|	|	| Email
+|	|
+| 1	| John Doe	| 1	| 123-456-7890 | john.doe@example.com  |
+| 2	| Jane Smith | 2	| 987-654-3210 | jane.smith@example.com |
+| 3	| Bob Brown  | 3	| 555-123-4567 | bob.brown@example.com  |
+
+
+Address Table
+| AddressID (PK) | Address	|
+|	|	|
+| 1	| 123 Main St |
+| 2	| 456 Elm St  |
+| 3	| 789 Oak St  |
+
+
+Account Table
+ 
+| AccountID (PK) | CustomerID (FK) | AccountTypeID (FK) | Balance |
+|	|	|	|	|
+
+| 1	| 1	| 1	| 1000.00 |
+| 2	| 1	| 2	| 500.00 |
+| 3	| 2	| 3	| 5000.00 |
+
+
+Account_Type Table
+| AccountTypeID (PK) | AccountType |
+|	|	|
+
+| 1	| Savings	|
+| 2	| Current	|
+| 3	| Fixed Deposit|
+Third Normal Form (3NF) Customer Table
+| CustomerID (PK) | Name	| AddressID (FK) | Phone	| Email	|
+|	|	|	|	|	|
+| 1	| John Doe	| 1	| 123-456-7890 | john.doe@example.com  |
+| 2	| Jane Smith | 2	| 987-654-3210 | jane.smith@example.com |
+| 3	| Bob Brown  | 3	| 555-123-4567 | bob.brown@example.com  |
+
+
+Address Table
+| AddressID (PK) | Address	| City	| State | Zip  |
+|	|	|	|	|	|
+| 1	| 123 Main St | New York | NY	| 10001 |
+| 2	| 456 Elm St  | Los Angeles| CA	| 90001 |
+| 3	| 789 Oak St  | Chicago  | IL	| 60001 |
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STEP 7: Applying the advanced data base for the traditional Model
+
+
+// customers collection
+{
+"_id" : ObjectId, "name" : String, "address" : String, "phone" : String, "email" : String, "accounts" : [
+{
+"_id" : ObjectId, "accountType" : String, "balance" : Number, "transactions" : [
+{
+"_id" : ObjectId,
+ 
+"transactionDate" : Date, "transactionType" : String, "amount" : Number
+}
+]
+}
+],
+"loans" : [
+{
+"_id" : ObjectId, "loanAmount" : Number, "interestRate" : Number, "repaymentDate" : Date
+}
+]
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+RESULT: Thus the given use case has been implemented using ER model, sql commands, nested queries, aggregate function and finally normalization is done convertion of traditional database to Advance Database done using mongoldb database.Thus implementation of Bank management is implemented successfully with given constraints.
+
+
+
+
