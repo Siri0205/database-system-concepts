@@ -1,0 +1,140 @@
+Aim:           
+CO1, K3   
+To design a Conceptual Entity Relationship (ER) Model using fundamental database design 
+methodology by identifying entities, attributes, relationships, cardinalities, keys, and constraints, 
+and to represent them using an ER diagram tool. (drawio, lucidchart) 
+Algorithm: 
+Algorithm: 
+➢ Start 
+➢ Understand the Requirements: 
+o Read and analyze the problem domain (in this case, a cricket management 
+system). 
+➢ Identify Entities: 
+o List the main objects (entities) relevant to the system. 
+o Example: CricketBoard, Team, Player, Match, Ground, Umpire. 
+➢ Identify Attributes for Each Entity: 
+o Determine characteristics of each entity. 
+o Example: Player has attributes like PlayerID, FName, LName, etc. 
+➢ Determine Relationships: 
+o Identify how entities are related. 
+o Example: A Team plays a Match, a Match occurs at a Ground. 
+➢ Identify Cardinalities and Relationship Types: 
+o For each relationship, define how many instances of an entity relate to another. 
+o Example: One CricketBoard organizes many Matches → 1:M. 
+➢ Define Keys and Constraints: 
+o Assign Primary Keys (PK) for unique identification. 
+o Assign Foreign Keys (FK) to enforce referential integrity. 
+➢ Normalize and Reframe Relations: 
+o Convert the design into a relational schema. 
+➢ Design ER Diagram using Creately: 
+o Go to https://creately.com/diagram. 
+o Use ER template, add entities, attributes, keys, and relationships with proper 
+cardinality. 
+➢ Save and Export Diagram as needed. 
+➢ End 
+Question:         
+Using basic database design methodology and ER modeler, design Entity Relationship Diagram 
+by satisfying the following sub tasks: 
+1. a Identifying the entities. 
+1. b Identifying the attributes. 
+Sample Output:  
+CricketBoard(BoardID, Name, Address, Contact_No) 
+Team(TeamID, Name, Coach, Captain) 
+Player(PlayerID, FName, LName, Age, DateofBirth, PlayingRole) 
+Match( MatchID, Date, Time, Result) 
+Ground(GroundID, Name, Location, Capacity) 
+Umpire(UmpireID, FName, LName, Age, DateofBirth, Country) 
+1. c Identification of relationships, cardinality, type of relationship. 
+1. d Reframing the relations with keys and constraint. 
+1. e Using creately, develop ER/EER diagram 
+1.a Identifying the Entities 
+The major entities are: 
+1. CricketBoard 
+2. Team 
+3. Player 
+4. Match 
+5. Ground 
+6. Umpire 
+1.b Identifying the Attributes 
+Sample Output (EntityName(Attribute1, Attribute2,...)): 
+1. CricketBoard(BoardID, Name, Address, Contact_No) 
+2. Team(TeamID, Name, Coach, Captain) 
+3. Player(PlayerID, FName, LName, Age, DateofBirth, PlayingRole) 
+4. Match(MatchID, Date, Time, Result) 
+5. Ground(GroundID, Name, Location, Capacity) 
+6. Umpire(UmpireID, FName, LName, Age, DateofBirth, Country) 
+1.c Identification of Relationships, Cardinality, Type of Relationship 
+Relationship Entities Involved 
+Organizes 
+Cardinality Type 
+CricketBoard – Match 1:M 
+Plays 
+Team – Match 
+Belongs To Player – Team 
+Occurs At 
+Officiates 
+Match – Ground 
+Umpire – Match 
+M:N 
+M:1 
+M:1 
+M:N 
+One-to-Many 
+Many-to-Many 
+Many-to-One 
+Many-to-One 
+Many-to-Many 
+1.d Reframing the Relations with Keys and Constraints 
+Below are the relations with Primary Keys (PK) and Foreign Keys (FK) defined: 
+1. CricketBoard (BoardID, Name, Address, Contact_No) 
+2. Team(TeamID, Name, Coach, Captain) 
+3. Player(PlayerID, FName, LName, Age, DateofBirth, PlayingRole, TeamID) 
+o FK: TeamID → Team.TeamID 
+4. Match(MatchID, Date, Time, Result, GroundID, BoardID) 
+o FK: GroundID → Ground.GroundID 
+o FK: BoardID → CricketBoard.BoardID 
+5. Ground(GroundID, Name, Location, Capacity) 
+6. Umpire(UmpireID, FName, LName, Age, DateofBirth, Country) 
+7. MatchTeam(MatchID, TeamID) 
+o Composite PK: MatchID + TeamID 
+o FK: MatchID → Match.MatchID 
+o FK: TeamID → Team.TeamID 
+8. MatchUmpire (MatchID, UmpireID) 
+o Composite PK: MatchID + UmpireID 
+o FK: MatchID → Match. MatchID 
+o FK: UmpireID → Umpire.UmpireID 
+1.e Using Creately – Develop ER/EER Diagram 
+You can now create the ER diagram on https://creately.com using the above information. 
+➤ Steps to create ER Diagram on Creately: 
+1. Go to https://creately.com/diagram (Lucidchart) 
+2. Select ER Diagram Template 
+3. Add entities (CricketBoard, Team, Player, Match, Ground, Umpire) 
+4. Add attributes under each entity (underline primary keys) 
+5. Draw relationships and indicate cardinality (1:1, 1:N, M:N) 
+6. Use connectors and label relationships (e.g., "Organizes", "Plays", "Belongs To") 
+7. Save or export as PDF/Image 
+Summary Table of All Entities 
+Entity 
+Primary Key 
+CricketBoard BoardID 
+Team 
+Player 
+Match 
+Ground 
+Umpire 
+TeamID 
+PlayerID 
+MatchID 
+GroundID 
+UmpireID 
+Foreign Key(s) 
+— 
+— 
+TeamID → Team.TeamID 
+GroundID, BoardID 
+— 
+— 
+MatchTeam MatchID + TeamID MatchID, TeamID 
+MatchUmpire MatchID + UmpireID MatchID, UmpireID 
+Result: 
+Thus, ER diagram was draw successfully using Lucid chart. 
