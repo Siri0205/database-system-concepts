@@ -1,0 +1,113 @@
+Trigger
+•	A Trigger is a stored procedure in a database, which are executed automatically when there is any response to certain events on the particular table in the database.
+•	Triggers are used to protect the data integrity in the database.
+
+In Structured Query Language, triggers are called only either before or after the below events:
+•	INSERT Event: This event is called when the new row is entered in the table.
+•	UPDATE Event: This event is called when the existing record is changed or modified in the table.
+•	DELETE Event: This event is called when the existing record is removed from the table.
+Questions:
+•	a) To create a trigger in PL/SQL that automatically calculates and updates the total number of matches played by a player whenever a new match is added to the MatchTeam table. We will assume that the Player table has a column named TotalMatchesPlayed to store the total number of matches played by each player. 
+•	b) To create a view that displays the details of players along with their total number of matches played.
+•	c) To write a non-recursive PL/SQL procedure to retrieve even-numbered PlayerIDs registered for any tournament.
+Syntax of Trigger in SQL
+CREATE TRIGGER Trigger_Name  
+[ BEFORE | AFTER ]  [ Insert | Update | Delete]  
+ON [Table_Name]  
+[ FOR EACH ROW | FOR EACH COLUMN ]  
+AS  
+Set of SQL Statement  
+Step 1: Create Tables
+Procedures:
+•	Player stores player info and total matches played.
+•	MatchTeam stores matches linked to each player. 
+•	Foreign key ensures only valid players are inserted.
+Coding:
+-- Player table
+CREATE TABLE Player ( PlayerID VARCHAR2(10) PRIMARY KEY,
+    PlayerName VARCHAR2(50), TotalMatchesPlayed NUMBER DEFAULT 0
+);
+-- MatchTeam table
+CREATE TABLE MatchTeam ( MatchID VARCHAR2(10), PlayerID VARCHAR2(10), CONSTRAINT fk_player FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID)
+);
+Step 2: Trigger (Auto-update matches)
+Procedure: 
+•	Runs after insert into MatchTeam.
+•	Updates TotalMatchesPlayed for that player automatically.
+•	NVL() prevents null errors.
+Coding:
+CREATE OR REPLACE TRIGGER trg_update_total_matches
+AFTER INSERT ON MatchTeam 
+FOR EACH ROW
+BEGIN
+    UPDATE Player
+    SET TotalMatchesPlayed = NVL(TotalMatchesPlayed, 0) + 1
+    WHERE PlayerID = :NEW.PlayerID;
+END;
+/
+Step 3: View (Players + Matches)
+Procedures:
+•	Simple view that shows each player’s details and total matches.
+•	Useful for reports.
+Coding:
+CREATE OR REPLACE VIEW PlayerMatchView AS
+SELECT PlayerID, PlayerName, TotalMatchesPlayed
+FROM Player;
+🔹 Step 4: Procedure (Even-numbered Player IDs)
+Procedures:
+•	Extracts the numeric part at the end of PlayerID.
+•	Uses MOD(...,2)=0 → selects only even numbers.
+•	Uses cursor loop (non-recursive).
+•	Exception handling included.
+Coding:
+CREATE OR REPLACE PROCEDURE GetEvenPlayerIDs IS
+    CURSOR c1 IS
+        SELECT PlayerID
+        FROM Player
+        WHERE MOD(TO_NUMBER(REGEXP_SUBSTR(PlayerID, '\d+$')), 2) = 0;
+BEGIN
+    FOR rec IN c1 LOOP
+        DBMS_OUTPUT.PUT_LINE('PlayerID: ' || rec.PlayerID);
+    END LOOP;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No even-numbered PlayerIDs found.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
+🔹 Step 5: Insert Sample Data & Test
+-- Insert players
+INSERT INTO Player (PlayerID, PlayerName) VALUES ('PID012', 'Rohit');
+INSERT INTO Player (PlayerID, PlayerName) VALUES ('PID311', 'Virat');
+INSERT INTO Player (PlayerID, PlayerName) VALUES ('PID008', 'Dhoni');
+INSERT INTO Player (PlayerID, PlayerName) VALUES ('PID313', 'Gill');
+-- Insert matches (this will fire trigger automatically)
+INSERT INTO MatchTeam (MatchID, PlayerID) VALUES ('M001', 'PID012');
+INSERT INTO MatchTeam (MatchID, PlayerID) VALUES ('M002', 'PID012');
+INSERT INTO MatchTeam (MatchID, PlayerID) VALUES ('M003', 'PID008');
+COMMIT;
+🔹 Step 6: Test Outputs
+Check Player Table
+SELECT * FROM Player;
+PlayerID   PlayerName   TotalMatchesPlayed
+------------------------------------------
+PID012     Rohit        2
+PID311     Virat        0
+PID008     Dhoni        1
+PID313     Gill         0
+Check View
+SELECT * FROM PlayerMatchView;
+Output Example:
+PlayerID   PlayerName   TotalMatchesPlayed
+------------------------------------------
+PID012     Rohit        2
+PID311     Virat        0
+PID008     Dhoni        1
+PID313     Gill         0
+Run Procedure
+SET SERVEROUTPUT ON;
+EXEC GetEvenPlayerIDs;
+Output Example:
+PlayerID: PID012
+PlayerID: PID008
